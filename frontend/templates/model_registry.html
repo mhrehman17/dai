@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Registry</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Decentralized AI System - Model Registry</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/agents">Manage Agents</a>
+        <a href="/training">Training Control</a>
+        <a href="/metrics">Metrics</a>
+        <a href="/model_registry">Model Registry</a>
+        <a href="/authentication">Login/Register</a>
+    </nav>
+
+    <div class="container">
+        <h2>Registered Models</h2>
+        <p>Below is a list of registered models in the decentralized AI system. You can view model details, download different versions, or register new models.</p>
+
+        <div class="filters">
+            <label for="model-type-filter">Filter by Type:</label>
+            <select id="model-type-filter">
+                <option value="all">All</option>
+                <option value="mnist">MNIST</option>
+                <option value="personalized">Personalized</option>
+                <option value="encrypted">Encrypted</option>
+            </select>
+            <button id="apply-model-filter" class="button">Apply Filter</button>
+        </div>
+
+        <div id="models-container" class="models-list">
+            <!-- Model list will be dynamically inserted here -->
+        </div>
+
+        <h3>Register New Model</h3>
+        <form id="register-model-form" onsubmit="return handleModelRegistration(event);">
+            <label for="model-name">Model Name:</label>
+            <input type="text" id="model-name" name="model_name" required>
+
+            <label for="model-type">Model Type:</label>
+            <select id="model-type" name="model_type" required>
+                <option value="mnist">MNIST</option>
+                <option value="personalized">Personalized</option>
+                <option value="encrypted">Encrypted</option>
+            </select>
+
+            <label for="model-description">Description:</label>
+            <textarea id="model-description" name="model_description" rows="4" required></textarea>
+
+            <input type="submit" value="Register Model">
+        </form>
+    </div>
+
+    <footer>
+        <p>Decentralized AI System &copy; 2024 | All rights reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modelFilterSelect = document.getElementById('model-type-filter');
+            const applyModelFilterButton = document.getElementById('apply-model-filter');
+
+            applyModelFilterButton.addEventListener('click', async () => {
+                const filter = modelFilterSelect.value;
+                await fetchModels(filter);
+            });
+
+            // Fetch models from the API
+            async function fetchModels(filter) {
+                try {
+                    const response = await fetch(`/api/models/list?filter=${filter}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch models');
+                    }
+                    const models = await response.json();
+                    updateModelsList(models);
+                } catch (error) {
+                    console.error('Error fetching models:', error);
+                }
+            }
+
+            // Update the model list in the UI
+            function updateModelsList(models) {
+                const modelsContainer = document.getElementById('models-container');
+                modelsContainer.innerHTML = '';
+                models.forEach(model => {
+                    const modelDiv = document.createElement('div');
+                    modelDiv.classList.add('model-item');
+                    modelDiv.innerHTML = `
+                        <h4>${model.name} (Type: ${model.type})</h4>
+                        <p>Description: ${model.description}</p>
+                        <p>Version: ${model.version}</p>
+                        <button onclick="viewModelDetails('${model.id}')">View Details</button>
+                        <button onclick="downloadModel('${model.id}', '${model.version}')">Download</button>
+                    `;
+                    modelsContainer.appendChild(modelDiv);
+                });
+            }
+
+            // Fetch models initially
+            fetchModels('all');
+
+            // Handle new model registration
+            async function handleModelRegistration(event) {
+                event.preventDefault();
+                const modelName = document.getElementById('model-name').value;
+                const modelType = document.getElementById('model-type').value;
+                const modelDescription = document.getElementById('model-description').value;
+
+                const requestBody = {
+                    name: modelName,
+                    type: modelType,
+                    description: modelDescription
+                };
+
+                try {
+                    const response = await fetch('/api/models/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    if (response.ok) {
+                        alert('Model registered successfully!');
+                        document.getElementById('register-model-form').reset();
+                        fetchModels('all'); // Refresh the model list
+                    } else {
+                        alert('Failed to register model. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error registering model:', error);
+                    alert('An error occurred while registering the model.');
+                }
+            }
+        });
+
+        // View model details in a modal
+        function viewModelDetails(modelId) {
+            // Example: This function could open a modal with more detailed information about the model
+            alert(`Model Details for ID: ${modelId}`);
+        }
+
+        // Download model
+        function downloadModel(modelId, version) {
+            // Redirect to download URL or trigger download
+            window.location.href = `/api/models/download?modelId=${modelId}&version=${version}`;
+        }
+    </script>
+</body>
+</html>

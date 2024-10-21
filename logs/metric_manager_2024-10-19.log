@@ -1,0 +1,4 @@
+2024-10-19 21:20:24,717 - metric_manager - INFO - Started timing: blockchain_sync
+2024-10-19 21:20:26,717 - metric_manager - INFO - Metric 'blockchain_sync' completed in 2.00 seconds.
+2024-10-19 21:20:26,718 - metric_manager - INFO - Metric 'cpu_usage': 75.5
+2024-10-19 21:20:26,718 - metric_manager - INFO - Metric 'memory_usage': 63.4

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build:
+      context: ..
+      dockerfile: Dockerfile.cloud
+    container_name: orchestrator
+    ports:
+      - "8000:8000"
+      - "50051:50051"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../logs:/app/logs
+      - ../configs:/app/configs
+    depends_on:
+      - blockchain
+    networks:
+      - dai_network
+
+  blockchain:
+    build:
+      context: ..
+      dockerfile: Dockerfile.blockchain
+    container_name: blockchain_node
+    ports:
+      - "8545:8545"
+      - "7545:7545"
+    volumes:
+      - ../core/orchestrator/blockchain_smart_contracts:/blockchain/contracts
+    networks:
+      - dai_network
+
+  edge_agent:
+    build:
+      context: ..
+      dockerfile: Dockerfile.edge
+    container_name: edge_agent
+    ports:
+      - "8001:8000"
+      - "50052:50051"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../logs:/app/logs
+      - ../configs:/app/configs
+    networks:
+      - dai_network
+    depends_on:
+      - orchestrator
+
+  performance_monitor:
+    build:
+      context: ..
+      dockerfile: Dockerfile.performance
+    container_name: performance_monitor
+    ports:
+      - "9090:9090"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../logs:/performance/logs
+    networks:
+      - dai_network
+    depends_on:
+      - orchestrator
+
+networks:
+  dai_network:
+    driver: bridge

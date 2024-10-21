@@ -1,0 +1,2 @@
+2024-10-19 21:16:14,872 - checkpoint_manager - INFO - Checkpoint saved at ./checkpoints/mnist_epoch_5.pth for epoch 5
+2024-10-19 21:16:14,878 - checkpoint_manager - INFO - Checkpoint loaded from ./checkpoints/mnist_epoch_5.pth, resuming from epoch 5

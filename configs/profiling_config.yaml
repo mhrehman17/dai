@@ -1,0 +1,57 @@
+# Profiling Configuration for Decentralized AI System
+
+# General profiling settings
+profiling:
+  enabled: true
+  profiling_interval_sec: 60  # Interval for capturing profiling data in seconds
+  log_profiling_data: true  # Enable logging of profiling data to file
+  output_directory: "logs/profiling"  # Directory to store profiling reports
+  retention_days: 7  # Number of days to retain profiling data
+
+# CPU profiling settings
+cpu_profiling:
+  enabled: true
+  sampling_rate_hz: 100  # Sampling rate for CPU profiling in Hertz
+  log_cpu_usage: true  # Log CPU usage statistics
+
+# Memory profiling settings
+memory_profiling:
+  enabled: true
+  sampling_interval_sec: 10  # Interval for capturing memory usage data
+  log_memory_usage: true  # Log memory usage statistics
+  memory_leak_detection: true  # Enable memory leak detection
+
+# GPU profiling settings
+gpu_profiling:
+  enabled: true
+  sampling_interval_sec: 15  # Interval for capturing GPU metrics
+  log_gpu_memory_usage: true  # Log GPU memory usage statistics
+  log_gpu_utilization: true  # Log GPU utilization metrics
+
+# I/O profiling settings
+io_profiling:
+  enabled: true
+  disk_io_sampling_interval_sec: 30  # Interval for disk I/O profiling
+  network_io_sampling_interval_sec: 30  # Interval for network I/O profiling
+  log_disk_io: true  # Log disk I/O operations
+  log_network_io: true  # Log network I/O operations
+
+# Detailed profiling reports
+detailed_profiling:
+  enabled: false  # Enable/disable detailed profiling (may affect performance)
+  report_format: "json"  # Format of detailed profiling reports (options: json, csv, txt)
+  max_report_size_mb: 50  # Maximum size of profiling reports
+
+# Alerting for profiling thresholds
+profiling_alerts:
+  cpu_usage_threshold: 85  # Alert if CPU usage exceeds this value
+  memory_usage_threshold: 90  # Alert if memory usage exceeds this value
+  gpu_utilization_threshold: 80  # Alert if GPU utilization exceeds this value
+  disk_io_threshold: 1000  # Alert if disk I/O operations exceed this threshold (in MB/s)
+  network_io_threshold: 100  # Alert if network I/O exceeds this value (in MB/s)
+
+# Miscellaneous settings
+misc:
+  enable_profiler_ui: true  # Enable UI for real-time profiling visualization
+  save_profiling_snapshots: true  # Save snapshots of profiling data
+  snapshot_interval_min: 30  # Interval for saving profiling snapshots in minutes

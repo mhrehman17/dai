@@ -1,0 +1,63 @@
+# Performance Configuration for Decentralized AI System
+
+# General performance settings
+performance:
+  max_parallel_agents: 10  # Maximum number of agents that can run in parallel
+  batch_size: 32  # Default batch size for training models
+  num_epochs: 5  # Number of epochs for training
+  learning_rate: 0.001  # Learning rate for model optimization
+
+# Resource allocation
+resources:
+  cpu_limit: 80  # Maximum percentage of CPU usage for each agent
+  memory_limit_mb: 2048  # Maximum memory in MB for each agent
+  gpu_enabled: true  # Use GPU if available
+  gpu_memory_allocation: 0.8  # Percentage of GPU memory to allocate
+
+# Load balancing settings
+load_balancing:
+  strategy: "least_connections"  # Options: round_robin, least_connections, ip_hash
+  max_requests_per_node: 100  # Maximum requests handled by a node before switching
+
+# Auto-scaling settings
+auto_scaling:
+  enabled: true
+  min_agents: 2  # Minimum number of agents to maintain
+  max_agents: 15  # Maximum number of agents to scale up
+  scale_up_threshold: 75  # CPU usage percentage threshold to scale up
+  scale_down_threshold: 25  # CPU usage percentage threshold to scale down
+
+# Caching settings
+caching:
+  enabled: true
+  cache_size_mb: 512  # Maximum cache size in MB for data caching
+  cache_eviction_policy: "LRU"  # Options: LRU (Least Recently Used), LFU (Least Frequently Used)
+
+# Network optimization
+network:
+  connection_timeout_sec: 10  # Timeout for establishing connections
+  max_retries: 3  # Maximum number of retries for failed network requests
+  retry_delay_sec: 5  # Delay in seconds between retries
+
+# Monitoring and alerting settings
+monitoring:
+  latency_threshold_ms: 100  # Maximum acceptable latency in milliseconds
+  throughput_target_rps: 200  # Desired requests per second throughput
+  alerting:
+    enabled: true
+    cpu_usage_alert_threshold: 85  # Alert if CPU usage exceeds this value
+    memory_usage_alert_threshold: 90  # Alert if memory usage exceeds this value
+
+# Task scheduling settings
+task_scheduler:
+  task_queue_size: 100  # Maximum number of tasks in the queue
+  max_task_duration_sec: 300  # Maximum duration a task can run before being terminated
+  prefetch_batch_count: 5  # Number of batches to prefetch for training
+
+# Miscellaneous settings
+misc:
+  profiling:
+    enabled: true
+    profiling_interval_sec: 60  # Interval for capturing profiling data
+  log_performance_metrics: true  # Enable logging for performance metrics
+  save_metrics_interval_sec: 300  # Interval for saving performance metrics to disk

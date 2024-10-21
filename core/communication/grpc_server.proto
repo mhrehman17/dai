@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package core.communication;
+
+service Blockchain {
+    // RPC to get the current blockchain state
+    rpc GetBlockchainState(Empty) returns (BlockchainState);
+
+    // RPC to add a new block to the blockchain
+    rpc AddBlock(BlockData) returns (BlockResponse);
+}
+
+// Empty message for GetBlockchainState request
+message Empty {}
+
+// Data structure for a block to be added
+message BlockData {
+    string data = 1;  // The data to store in the block
+}
+
+// Structure representing a block
+message Block {
+    int32 index = 1;
+    string previous_hash = 2;
+    string timestamp = 3;
+    string data = 4;
+    int32 nonce = 5;
+    string hash = 6;
+}
+
+// BlockchainState containing a list of blocks
+message BlockchainState {
+    repeated Block blocks = 1;
+}
+
+// Response after adding a block
+message BlockResponse {
+    bool success = 1;
+}

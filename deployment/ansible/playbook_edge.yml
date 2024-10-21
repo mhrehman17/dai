@@ -1,0 +1,106 @@
+---
+# Ansible Playbook for Edge Device Deployment of Decentralized AI System
+
+- name: Deploy Decentralized AI System on Edge Devices
+  hosts: edge_devices
+  become: true
+  vars:
+    docker_version: "20.10"
+    python_version: "3.8"
+    edge_user: "pi"
+    project_directory: "/home/pi/dai_project"
+
+  tasks:
+    - name: Ensure Python is installed
+      apt:
+        name: "python{{ python_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/raspbian/gpg
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: "deb [arch=armhf] https://download.docker.com/linux/raspbian stretch stable"
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: "docker-ce={{ docker_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m`"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ edge_user }}"
+        groups: "docker"
+        append: yes
+
+    - name: Create project directory
+      file:
+        path: "{{ project_directory }}"
+        state: directory
+        owner: "{{ edge_user }}"
+        mode: '0755'
+
+    - name: Copy project files to edge device
+      synchronize:
+        src: "../.."
+        dest: "{{ project_directory }}"
+        rsync_opts:
+          - "--exclude='.git'"
+          - "--exclude='*.pyc'"
+
+    - name: Set up environment variables
+      template:
+        src: "../templates/.env_edge.j2"
+        dest: "{{ project_directory }}/.env"
+        mode: '0644'
+
+    - name: Start Docker containers
+      command: "docker-compose up -d"
+      args:
+        chdir: "{{ project_directory }}"
+
+    - name: Verify that Docker containers are running
+      shell: "docker ps --filter 'name=dai' --format '{{.Names}}: {{.Status}}'"
+      register: container_status
+
+    - name: Output container status
+      debug:
+        msg: "{{ container_status.stdout_lines }}"
+
+    - name: Set up monitoring agent (optional)
+      apt:
+        name: "netdata"
+        state: present
+
+    - name: Enable netdata service for edge monitoring
+      service:
+        name: "netdata"
+        state: started
+        enabled: true
+
+    - name: Reboot edge device to apply changes (optional)
+      reboot:
+        msg: "Rebooting to apply Docker group membership and configuration changes."
+        connect_timeout: 5

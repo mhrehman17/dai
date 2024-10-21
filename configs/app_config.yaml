@@ -1,0 +1,91 @@
+# Application Configuration for Decentralized AI System
+
+# General application settings
+application:
+  name: "Decentralized AI System"
+  version: "1.0.0"
+  environment: "production"  # Options: development, production
+  log_level: "INFO"
+
+# Network settings
+network:
+  orchestrator_url: "http://localhost:8000"
+  grpc_port: 50051
+  use_tls: true
+
+# Database configuration
+database:
+  type: "sqlite"
+  url: "sqlite:///data/decai.db"
+  pool_size: 5
+  max_overflow: 10
+
+# Model registry settings
+model_registry:
+  storage_dir: "core/models/registry/storage"
+  latest_version: "version_1"
+  backup: true
+
+# Agent settings
+agents:
+  num_agents: 4
+  agent_ids: ["agent_1", "agent_2", "agent_3", "agent_4"]
+  training:
+    epochs: 5
+    batch_size: 32
+    learning_rate: 0.001
+
+# Security settings
+security:
+  encryption:
+    enabled: true
+    key_path: "configs/keys/public_key.pem"
+  authentication:
+    enabled: true
+    jwt_secret: "supersecretkey"
+    jwt_algorithm: "HS256"
+  authorization:
+    enabled: true
+    zero_trust: true
+
+# Blockchain settings
+blockchain:
+  use_blockchain: true
+  node_url: "http://localhost:8545"
+  consensus: "PoS"  # Options: PoW, PoS
+  contracts:
+    aggregation_contract: "core/orchestrator/blockchain_smart_contracts/aggregation_contract.sol"
+    registration_contract: "core/orchestrator/blockchain_smart_contracts/registration_contract.sol"
+
+# Logging settings
+logging:
+  log_to_file: true
+  log_file_path: "logs/app_main.log"
+  retention_days: 7
+
+# Monitoring settings
+monitoring:
+  enabled: true
+  reporting_interval_seconds: 60
+  prometheus_endpoint: "http://localhost:9090"
+
+# Deployment settings
+deployment:
+  environment: "docker"  # Options: local, docker, kubernetes
+  autoscaling:
+    enabled: true
+    min_agents: 2
+    max_agents: 10
+
+# UI and API settings
+ui:
+  frontend_url: "http://localhost:3000"
+api:
+  base_path: "/api/v1"
+  enable_cors: true
+  cors_allowed_origins: ["*"]
+
+# Miscellaneous
+misc:
+  auto_update: true
+  check_update_interval_hours: 24

@@ -1,0 +1,44 @@
+[
+    {
+        "index": 0,
+        "previous_hash": "0",
+        "timestamp": 1729249115.9918292,
+        "data": "Genesis Block",
+        "nonce": 0
+    },
+    {
+        "index": 1,
+        "previous_hash": "505f8a67e164fceeca4b2f0d641374b07f080464e715ba36ea51d0887f1d2a02",
+        "timestamp": 1729249118.9932127,
+        "data": "Mined by miner1 at 1729249118.9931948",
+        "nonce": 215355
+    },
+    {
+        "index": 2,
+        "previous_hash": "0000b7c77281e2c58a6ef5ff69ee3d82cad012f95b70797828a98b2a8630fa14",
+        "timestamp": 1729249122.2814019,
+        "data": "Mined by miner1 at 1729249122.2813756",
+        "nonce": 54207
+    },
+    {
+        "index": 3,
+        "previous_hash": "0000b32b2b6293c2864811e5c0de51f5a9ca94f4b60bf018c0f93f5bc3f6ada7",
+        "timestamp": 1729249125.3534422,
+        "data": "Mined by miner1 at 1729249125.353421",
+        "nonce": 21564
+    },
+    {
+        "index": 4,
+        "previous_hash": "0000dad53e477ccd4d9067ebbd96578ea15181214786ec3256d58e89b4ee5c51",
+        "timestamp": 1729249128.3834121,
+        "data": "Mined by miner1 at 1729249128.383391",
+        "nonce": 31688
+    },
+    {
+        "index": 5,
+        "previous_hash": "00003392aacb266aaca21bec903a76ba1bfa1aaed00cc3efe0f8faab418056fb",
+        "timestamp": 1729249131.426313,
+        "data": "Mined by miner1 at 1729249131.4262989",
+        "nonce": 189467
+    }
+]

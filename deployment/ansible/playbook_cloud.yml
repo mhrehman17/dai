@@ -1,0 +1,111 @@
+---
+# Ansible Playbook for Cloud Deployment of Decentralized AI System
+
+- name: Deploy Decentralized AI System on Cloud
+  hosts: cloud_servers
+  become: true
+  vars:
+    docker_version: "20.10"
+    python_version: "3.8"
+    cloud_user: "ubuntu"
+    project_directory: "/opt/dai_project"
+
+  tasks:
+    - name: Ensure Python is installed
+      apt:
+        name: "python{{ python_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: "docker-ce={{ docker_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m`"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Create project directory
+      file:
+        path: "{{ project_directory }}"
+        state: directory
+        owner: "{{ cloud_user }}"
+        mode: '0755'
+
+    - name: Copy project files to cloud server
+      synchronize:
+        src: "../.."
+        dest: "{{ project_directory }}"
+        rsync_opts:
+          - "--exclude='.git'"
+          - "--exclude='*.pyc'"
+
+    - name: Set up environment variables
+      template:
+        src: "../templates/.env.j2"
+        dest: "{{ project_directory }}/.env"
+        mode: '0644'
+
+    - name: Start Docker containers
+      command: "docker-compose up -d"
+      args:
+        chdir: "{{ project_directory }}"
+
+    - name: Verify that Docker containers are running
+      shell: "docker ps --filter 'name=dai' --format '{{.Names}}: {{.Status}}'"
+      register: container_status
+
+    - name: Output container status
+      debug:
+        msg: "{{ container_status.stdout_lines }}"
+
+    - name: Set up cron job for security audits (optional)
+      cron:
+        name: "Periodic Security Audit"
+        user: "root"
+        minute: "0"
+        hour: "0"
+        job: "cd {{ project_directory }} && ./scripts/security_audit.sh"
+        state: present
+
+    - name: Set up fail2ban for additional security
+      apt:
+        name: fail2ban
+        state: present
+
+    - name: Configure fail2ban
+      template:
+        src: "../templates/jail.local.j2"
+        dest: "/etc/fail2ban/jail.local"
+        mode: '0644'
+      notify: restart fail2ban
+
+  handlers:
+    - name: restart fail2ban
+      service:
+        name: fail2ban
+        state: restarted

@@ -1,0 +1,116 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-orchestrator
+  namespace: default
+  labels:
+    app: dai-system
+spec:
+  podSelector:
+    matchLabels:
+      app: dai-orchestrator
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: dai-blockchain
+    - podSelector:
+        matchLabels:
+          app: dai-edge-agent
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 50051
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: dai-blockchain
+    - podSelector:
+        matchLabels:
+          app: dai-edge-agent
+    ports:
+    - protocol: TCP
+      port: 8545
+    - protocol: TCP
+      port: 7545
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-edge-agent
+  namespace: default
+  labels:
+    app: dai-system
+spec:
+  podSelector:
+    matchLabels:
+      app: dai-edge-agent
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: dai-orchestrator
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 50051
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: dai-orchestrator
+    - podSelector:
+        matchLabels:
+          app: dai-blockchain
+    ports:
+    - protocol: TCP
+      port: 8545
+    - protocol: TCP
+      port: 7545
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-blockchain
+  namespace: default
+  labels:
+    app: dai-system
+spec:
+  podSelector:
+    matchLabels:
+      app: dai-blockchain
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: dai-orchestrator
+    ports:
+    - protocol: TCP
+      port: 8545
+    - protocol: TCP
+      port: 7545
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: dai-orchestrator
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 50051

@@ -1,0 +1,44 @@
+# Core dependencies for Decentralized AI System
+
+# FastAPI for the web framework
+fastapi
+uvicorn
+
+# Database and ORM
+sqlalchemy
+alembic
+
+# Cryptography and security
+cryptography
+PyJWT
+py_ecc>=5.0.0
+
+
+# Machine Learning
+numpy
+scipy
+scikit-learn
+torch
+
+# Blockchain Integration
+web3
+
+# Data and model serialization
+joblib
+
+# Monitoring and Metrics
+prometheus-client
+
+# gRPC communication
+grpcio
+
+# Miscellaneous utilities
+pydantic
+requests
+tenacity
+
+# Dashboard and visualization
+streamlit
+
+# Logging
+loguru

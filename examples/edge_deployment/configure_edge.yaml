@@ -1,0 +1,61 @@
+# Configuration file for edge device deployment in the Decentralized AI System
+
+# General settings
+edge_device:
+  id: "edge_device_001"
+  name: "Raspberry Pi 4"
+  location: "Factory Floor"
+  description: "Edge node for monitoring factory equipment."
+
+# Network configuration
+network:
+  use_wifi: true
+  wifi_ssid: "YourWiFiNetwork"
+  wifi_password: "YourWiFiPassword"
+  mqtt_broker_url: "mqtt://192.168.1.100:1883"
+
+# Resource management
+resources:
+  cpu_cores: 4
+  memory_limit_mb: 2048
+  gpu_enabled: false
+  max_bandwidth_kbps: 5000
+
+# Model settings
+model:
+  model_type: "mnist_model"
+  model_version: "1.2"
+  model_storage_path: "/home/pi/models/mnist_model_v1.2.pth"
+
+# Secure communication settings
+security:
+  encryption:
+    enabled: true
+    key_path: "/home/pi/keys/public_key.pem"
+  data_privacy:
+    differential_privacy: true
+    privacy_budget: 0.5
+
+# Agent configuration
+agent:
+  role: "training"
+  collaboration_mode: "peer-to-peer"
+  communication_protocol: "grpc"
+  retry_attempts: 3
+
+# Logging
+logging:
+  log_level: "INFO"
+  log_file_path: "/home/pi/logs/edge_device.log"
+
+# Monitoring settings
+monitoring:
+  enabled: true
+  reporting_interval_sec: 60
+  metrics_endpoint: "http://192.168.1.100:8000/metrics"
+
+# Firmware update settings
+firmware_update:
+  auto_update: true
+  update_url: "https://updates.example.com/edge_device/firmware"
+  check_interval_hours: 24

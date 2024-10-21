@@ -1,0 +1,10 @@
+{
+    "1.0": {
+        "description": "Initial MNIST model version",
+        "checkpoint_path": "core/models/registry/storage/version_1.0/checkpoint.pth",
+        "metrics_path": "core/models/registry/storage/version_1.0/metrics.json",
+        "num_parameters": 421642,
+        "architecture": "2 Conv Layers, 2 Fully Connected Layers",
+        "timestamp": 1729181128.600916
+    }
+}

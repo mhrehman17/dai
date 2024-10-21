@@ -1,0 +1,149 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dai-orchestrator
+  labels:
+    app: dai-orchestrator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dai-orchestrator
+  template:
+    metadata:
+      labels:
+        app: dai-orchestrator
+    spec:
+      containers:
+      - name: orchestrator
+        image: dai-system/orchestrator:latest
+        ports:
+        - containerPort: 8000
+        - containerPort: 50051
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: CONFIG_PATH
+          value: "/app/configs/app_config.yaml"
+        volumeMounts:
+        - name: configs-volume
+          mountPath: "/app/configs"
+      volumes:
+      - name: configs-volume
+        configMap:
+          name: dai-performance-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dai-blockchain
+  labels:
+    app: dai-blockchain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dai-blockchain
+  template:
+    metadata:
+      labels:
+        app: dai-blockchain
+    spec:
+      containers:
+      - name: blockchain
+        image: dai-system/blockchain:latest
+        ports:
+        - containerPort: 8545
+        - containerPort: 7545
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dai-edge-agent
+  labels:
+    app: dai-edge-agent
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: dai-edge-agent
+  template:
+    metadata:
+      labels:
+        app: dai-edge-agent
+    spec:
+      containers:
+      - name: edge-agent
+        image: dai-system/edge-agent:latest
+        ports:
+        - containerPort: 8000
+        - containerPort: 50051
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        env:
+        - name: CONFIG_PATH
+          value: "/app/configs/app_config.yaml"
+        volumeMounts:
+        - name: configs-volume
+          mountPath: "/app/configs"
+      volumes:
+      - name: configs-volume
+        configMap:
+          name: dai-performance-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dai-performance-monitor
+  labels:
+    app: dai-performance-monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dai-performance-monitor
+  template:
+    metadata:
+      labels:
+        app: dai-performance-monitor
+    spec:
+      containers:
+      - name: performance-monitor
+        image: dai-system/performance-monitor:latest
+        ports:
+        - containerPort: 9090
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        env:
+        - name: CONFIG_PATH
+          value: "/performance/configs/performance_config.yaml"
+        volumeMounts:
+        - name: configs-volume
+          mountPath: "/performance/configs"
+      volumes:
+      - name: configs-volume
+        configMap:
+          name: dai-performance-config

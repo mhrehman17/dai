@@ -1,0 +1,58 @@
+# Logging Configuration for Decentralized AI System
+
+# General logging settings
+logging:
+  log_to_file: true
+  log_level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  retention_days: 7
+
+# File handler configuration
+file_handler:
+  enabled: true
+  log_file_path: "logs/app_main.log"
+  max_file_size_mb: 10  # Maximum size of a log file before it gets rotated
+  backup_count: 5  # Number of backup files to keep after rotation
+
+# Console handler configuration
+console_handler:
+  enabled: true
+  log_level: "DEBUG"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+# Specific logger configurations
+loggers:
+  orchestrator:
+    log_level: "INFO"
+    propagate: false
+  agent:
+    log_level: "DEBUG"
+    propagate: false
+  blockchain:
+    log_level: "WARNING"
+    propagate: false
+
+# Formatter settings
+formatters:
+  detailed:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  simple:
+    format: "%(levelname)s - %(message)s"
+
+# Handlers
+handlers:
+  file_handler:
+    class: "logging.handlers.RotatingFileHandler"
+    formatter: "detailed"
+    level: "INFO"
+    filename: "logs/app_main.log"
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+  console_handler:
+    class: "logging.StreamHandler"
+    formatter: "simple"
+    level: "DEBUG"
+
+# Root logger configuration
+root:
+  level: "INFO"
+  handlers: ["file_handler", "console_handler"]

@@ -1,0 +1,78 @@
+site_name: "Decentralized AI System Documentation"
+site_url: "https://example.com"
+site_description: "Comprehensive documentation for the Decentralized AI System, including setup, usage, and architecture details."
+repo_url: "https://github.com/username/dai_project"
+
+# Theme configuration
+theme:
+  name: "material"
+  palette:
+    primary: "blue"
+    accent: "indigo"
+  features:
+    - navigation.tabs
+    - instant
+  logo: "images/logo.png"
+  favicon: "images/logo.png"
+
+# Navigation configuration
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Architecture: architecture.md
+  - API Reference:
+      - Overview: api_reference.md
+      - Endpoints:
+          - Agents: api_reference_agents.md
+          - Orchestrator: api_reference_orchestrator.md
+          - Metrics: api_reference_metrics.md
+          - Privacy: api_reference_privacy.md
+  - Usage:
+      - Examples: usage.md
+      - Data Flow: data_flow.md
+      - Model Versioning: model_versioning.md
+  - Deployment Guide: deployment_guide.md
+  - Monitoring: monitoring_guide.md
+  - Privacy Policy: privacy_policy.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
+  - Contribution Guidelines: contribute.md
+
+# Plugins configuration
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - "import os; os.environ['PYTHONPATH'] = os.getcwd()"
+  - git-revision-date-localized:
+      type: "timeago"
+  - awesome-pages:
+      collapse: true
+
+# Extra configurations
+extra:
+  social:
+    - icon: "fontawesome/brands/github"
+      link: "https://github.com/username/dai_project"
+    - icon: "fontawesome/brands/twitter"
+      link: "https://twitter.com/username"
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - toc:
+      permalink: "#"
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.mark
+
+# Additional configurations
+extra_css:
+  - "stylesheets/custom.css"
+extra_javascript:
+  - "javascripts/custom.js"

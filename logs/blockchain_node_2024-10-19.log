@@ -1,0 +1,3 @@
+2024-10-19 21:17:49,494 - blockchain_node - INFO - Blockchain node started.
+2024-10-19 21:17:49,494 - blockchain_node - DEBUG - Debugging blockchain state.
+2024-10-19 21:17:49,494 - blockchain_node - ERROR - An error occurred while validating the blockchain.

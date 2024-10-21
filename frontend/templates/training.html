@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Control</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/scripts.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Decentralized AI System - Training Control</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/agents">Manage Agents</a>
+        <a href="/training">Training Control</a>
+        <a href="/metrics">Metrics</a>
+        <a href="/model_registry">Model Registry</a>
+        <a href="/authentication">Login/Register</a>
+    </nav>
+
+    <div class="container">
+        <h2>Training Tasks</h2>
+        <p>Control and monitor training tasks for different models across agents in the decentralized system.</p>
+
+        <div class="filters">
+            <label for="model-selection">Select Model:</label>
+            <select id="model-selection">
+                <!-- Model options will be populated dynamically -->
+            </select>
+
+            <label for="agent-selection">Select Agent:</label>
+            <select id="agent-selection">
+                <!-- Agent options will be populated dynamically -->
+            </select>
+            <button id="start-training" class="button">Start Training</button>
+        </div>
+
+        <div id="training-status" class="training-status">
+            <!-- Training status and progress will be shown here -->
+        </div>
+
+        <div id="training-progress-chart-container">
+            <canvas id="trainingProgressChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <footer>
+        <p>Decentralized AI System &copy; 2024 | All rights reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch model and agent lists
+            fetchModels();
+            fetchAgents();
+
+            const startTrainingButton = document.getElementById('start-training');
+            startTrainingButton.addEventListener('click', async () => {
+                const modelId = document.getElementById('model-selection').value;
+                const agentId = document.getElementById('agent-selection').value;
+                await startTrainingTask(modelId, agentId);
+            });
+
+            // Fetch models from the API
+            async function fetchModels() {
+                try {
+                    const response = await retryFetch('/api/models/list', 3);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch models');
+                    }
+                    const models = await response.json();
+                    populateModelSelection(models);
+                } catch (error) {
+                    console.error('Error fetching models:', error);
+                }
+            }
+
+            // Populate model selection dropdown
+            function populateModelSelection(models) {
+                const modelSelection = document.getElementById('model-selection');
+                models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.textContent = `${model.name} (Version: ${model.version})`;
+                    modelSelection.appendChild(option);
+                });
+            }
+
+            // Fetch agents from the API
+            async function fetchAgents() {
+                try {
+                    const response = await retryFetch('/api/agents/list', 3);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch agents');
+                    }
+                    const agents = await response.json();
+                    populateAgentSelection(agents);
+                } catch (error) {
+                    console.error('Error fetching agents:', error);
+                }
+            }
+
+            // Populate agent selection dropdown
+            function populateAgentSelection(agents) {
+                const agentSelection = document.getElementById('agent-selection');
+                agents.forEach(agent => {
+                    const option = document.createElement('option');
+                    option.value = agent.id;
+                    option.textContent = `${agent.name} (${agent.type})`;
+                    agentSelection.appendChild(option);
+                });
+            }
+
+            // Start a training task
+            async function startTrainingTask(modelId, agentId) {
+                const requestBody = {
+                    modelId: modelId,
+                    agentId: agentId
+                };
+
+                try {
+                    const response = await retryFetch('/api/training/start', 3, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    if (response.ok) {
+                        alert('Training task started successfully!');
+                        monitorTrainingStatus(modelId, agentId);
+                    } else {
+                        alert('Failed to start training task. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error starting training task:', error);
+                    alert('An error occurred while starting the training task.');
+                }
+            }
+
+            // Monitor the training status using polling every 5 seconds
+            function monitorTrainingStatus(modelId, agentId) {
+                const intervalId = setInterval(async () => {
+                    try {
+                        const response = await fetch(`/api/training/status?modelId=${modelId}&agentId=${agentId}`);
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch training status');
+                        }
+                        const status = await response.json();
+                        updateTrainingStatus(status);
+                        updateTrainingProgressChart(status);
+
+                        // Stop polling if training is complete
+                        if (status.state === 'Completed' || status.state === 'Failed') {
+                            clearInterval(intervalId);
+                        }
+                    } catch (error) {
+                        console.error('Error fetching training status:', error);
+                    }
+                }, 5000);
+            }
+
+            // Update training status in the UI
+            function updateTrainingStatus(status) {
+                const trainingStatusDiv = document.getElementById('training-status');
+                trainingStatusDiv.innerHTML = '';
+                trainingStatusDiv.innerHTML = `
+                    <h3>Training Status</h3>
+                    <p>Model: ${status.modelName}</p>
+                    <p>Agent: ${status.agentName}</p>
+                    <p>Status: ${status.state}</p>
+                    <p>Progress: ${status.progress}%</p>
+                `;
+            }
+
+            // Create and update the training progress chart
+            const trainingProgressCtx = document.getElementById('trainingProgressChart').getContext('2d');
+            const trainingProgressChart = new Chart(trainingProgressCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Training Progress (%)',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            function updateTrainingProgressChart(status) {
+                trainingProgressChart.data.labels.push(new Date().toLocaleTimeString());
+                trainingProgressChart.data.datasets[0].data.push(status.progress);
+                trainingProgressChart.update();
+            }
+
+            // Retry fetch utility function for error handling
+            async function retryFetch(url, retries, options = {}) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.ok) {
+                            return response;
+                        }
+                    } catch (error) {
+                        if (i === retries - 1) throw error;
+                    }
+                }
+                throw new Error('Failed to fetch after retries');
+            }
+        });
+    </script>
+</body>
+</html>

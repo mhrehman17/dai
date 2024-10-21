@@ -1,0 +1,39 @@
+# Dockerfile for Blockchain Node Deployment in Decentralized AI System
+
+# Base image with Node.js for blockchain-related tools and smart contracts
+FROM node:14-slim
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    curl \
+    git \
+    python3 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /blockchain
+
+# Copy blockchain-related project files into the container
+COPY core/orchestrator/blockchain_smart_contracts /blockchain/contracts
+
+# Install Truffle and Ganache for smart contract deployment and testing
+RUN npm install -g truffle@5.4.11 ganache-cli@6.12.2
+
+# Install local dependencies
+COPY package.json /blockchain/package.json
+RUN npm install
+
+# Expose ports for blockchain node communication
+EXPOSE 8545 7545
+
+# Create a non-root user for security
+RUN useradd -ms /bin/bash blockchainuser
+USER blockchainuser
+
+# Run the blockchain node using Ganache
+CMD ["ganache-cli", "-h", "0.0.0.0", "-p", "8545", "-i", "5777"]

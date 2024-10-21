@@ -1,0 +1,92 @@
+2024-10-17 16:27:33,010 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 started.
+2024-10-17 16:27:33,010 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 16:27:33,010 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 16:27:33,010 - resource_adaptive_agent - WARNING - Failed to send heartbeat to peer peer_2
+2024-10-17 16:27:34,011 - resource_adaptive_agent - INFO - CPU Usage: 5.1%
+2024-10-17 16:27:34,011 - resource_adaptive_agent - INFO - CPU Usage: 5.1%
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - Memory Usage: 26.5%
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - Memory Usage: 26.5%
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - CPU usage (5.1%) is within limits.
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 5.1
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - Memory usage (26.5%) is within limits.
+2024-10-17 16:27:34,012 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 26.5
+2024-10-17 16:27:38,011 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 16:27:38,011 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 16:27:38,011 - resource_adaptive_agent - WARNING - Failed to send heartbeat to peer peer_2
+2024-10-17 16:27:40,013 - resource_adaptive_agent - INFO - CPU Usage: 2.1%
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - CPU Usage: 2.1%
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - Memory Usage: 26.4%
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - CPU usage (2.1%) is within limits.
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - Memory Usage: 26.4%
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - Memory usage (26.4%) is within limits.
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 2.1
+2024-10-17 16:27:40,014 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 26.4
+2024-10-17 16:27:43,012 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 16:27:43,012 - resource_adaptive_agent - WARNING - Failed to send heartbeat to peer peer_1
+2024-10-17 16:27:43,012 - resource_adaptive_agent - WARNING - Failed to send heartbeat to peer peer_2
+2024-10-17 16:27:46,017 - resource_adaptive_agent - INFO - CPU Usage: 2.3%
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - CPU Usage: 2.3%
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - Memory Usage: 26.4%
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - CPU usage (2.3%) is within limits.
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - Memory Usage: 26.4%
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - Memory usage (26.4%) is within limits.
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 2.3
+2024-10-17 16:27:46,018 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 26.4
+2024-10-17 16:27:48,013 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 16:27:48,013 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 16:27:48,013 - resource_adaptive_agent - WARNING - Failed to send heartbeat to peer peer_2
+2024-10-17 16:27:52,021 - resource_adaptive_agent - INFO - CPU Usage: 1.9%
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - CPU Usage: 1.9%
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - Memory Usage: 26.6%
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - Memory Usage: 26.6%
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - CPU usage (1.9%) is within limits.
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 1.9
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - Memory usage (26.6%) is within limits.
+2024-10-17 16:27:52,022 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 26.6
+2024-10-17 16:27:53,011 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 stopped.
+2024-10-17 21:20:29,124 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 started.
+2024-10-17 21:20:29,134 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 21:20:29,134 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 21:20:29,135 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_2
+2024-10-17 21:20:30,137 - resource_adaptive_agent - INFO - CPU Usage: 1.6%
+2024-10-17 21:20:30,137 - resource_adaptive_agent - INFO - CPU Usage: 1.6%
+2024-10-17 21:20:30,138 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:30,138 - resource_adaptive_agent - INFO - CPU usage (1.6%) is within limits.
+2024-10-17 21:20:30,138 - resource_adaptive_agent - INFO - Memory usage (14.9%) is within limits.
+2024-10-17 21:20:30,138 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:30,138 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 1.6
+2024-10-17 21:20:30,139 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 14.9
+2024-10-17 21:20:34,135 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 21:20:34,136 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 21:20:34,136 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_2
+2024-10-17 21:20:36,139 - resource_adaptive_agent - INFO - CPU Usage: 1.6%
+2024-10-17 21:20:36,139 - resource_adaptive_agent - INFO - CPU Usage: 1.6%
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - CPU usage (1.6%) is within limits.
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - Memory usage (14.9%) is within limits.
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 1.6
+2024-10-17 21:20:36,140 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 14.9
+2024-10-17 21:20:39,136 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 21:20:39,136 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 21:20:39,136 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_2
+2024-10-17 21:20:42,141 - resource_adaptive_agent - INFO - CPU Usage: 1.4%
+2024-10-17 21:20:42,141 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:42,141 - resource_adaptive_agent - INFO - CPU usage (1.4%) is within limits.
+2024-10-17 21:20:42,141 - resource_adaptive_agent - INFO - Memory usage (14.9%) is within limits.
+2024-10-17 21:20:42,141 - resource_adaptive_agent - INFO - CPU Usage: 1.4%
+2024-10-17 21:20:42,142 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:42,142 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 1.4
+2024-10-17 21:20:42,142 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 14.9
+2024-10-17 21:20:44,136 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 sending heartbeat to peers: ['peer_1', 'peer_2']
+2024-10-17 21:20:44,137 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_1
+2024-10-17 21:20:44,137 - resource_adaptive_agent - INFO - Heartbeat successfully sent to peer peer_2
+2024-10-17 21:20:48,142 - resource_adaptive_agent - INFO - CPU Usage: 3.8%
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - CPU Usage: 3.8%
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - CPU usage (3.8%) is within limits.
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - Memory usage (14.9%) is within limits.
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - Memory Usage: 14.9%
+2024-10-17 21:20:48,143 - resource_adaptive_agent - INFO - Metric 'CPU Usage': 3.8
+2024-10-17 21:20:48,144 - resource_adaptive_agent - INFO - Metric 'Memory Usage': 14.9
+2024-10-17 21:20:49,136 - resource_adaptive_agent - INFO - Agent adaptive_agent_1 stopped.

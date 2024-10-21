@@ -1,0 +1,32 @@
+# Python dependencies for the Edge Agent in the Decentralized AI System
+
+# Core dependencies
+numpy==1.21.6
+scipy==1.8.1
+
+# PyTorch for model loading and inference
+torch==1.11.0
+
+# YAML for configuration management
+PyYAML==6.0
+
+# Network management (using nmcli command)
+nmcli==0.4.4
+
+# Logging
+loguru==0.6.0
+
+# Secure communication
+cryptography==37.0.2
+
+# gRPC for agent communication
+grpcio==1.46.3
+
+# MQTT (for certain communication scenarios)
+paho-mqtt==1.6.1
+
+# Requests library
+requests==2.27.1
+
+# System utilities
+psutil==5.9.0

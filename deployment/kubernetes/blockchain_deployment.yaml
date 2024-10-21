@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dai-blockchain-node
+  labels:
+    app: dai-blockchain
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dai-blockchain
+  template:
+    metadata:
+      labels:
+        app: dai-blockchain
+    spec:
+      containers:
+      - name: blockchain-node
+        image: dai-system/blockchain-node:latest
+        ports:
+        - containerPort: 8545
+        - containerPort: 7545
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        volumeMounts:
+        - name: blockchain-data
+          mountPath: "/blockchain/data"
+        env:
+        - name: BLOCKCHAIN_NETWORK
+          value: "private"
+      volumes:
+      - name: blockchain-data
+        persistentVolumeClaim:
+          claimName: blockchain-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: blockchain-pvc
+  labels:
+    app: dai-blockchain
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

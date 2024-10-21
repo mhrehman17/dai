@@ -1,0 +1,70 @@
+# Load Balancer Configuration for Decentralized AI System
+
+# General load balancer settings
+load_balancer:
+  type: "round_robin"  # Options: round_robin, least_connections, ip_hash
+  health_check_interval: 10  # Interval in seconds for health checks
+  max_retries: 3  # Maximum number of retries for a failed node
+  timeout: 5  # Timeout in seconds for backend requests
+
+# Target nodes (agents or orchestrators) configuration
+target_nodes:
+  - id: "agent_1"
+    address: "http://192.168.1.101:8000"
+    weight: 1
+  - id: "agent_2"
+    address: "http://192.168.1.102:8000"
+    weight: 1
+  - id: "agent_3"
+    address: "http://192.168.1.103:8000"
+    weight: 1
+  - id: "agent_4"
+    address: "http://192.168.1.104:8000"
+    weight: 1
+
+# Health check settings
+health_check:
+  enabled: true
+  path: "/health"
+  method: "GET"
+  expected_response_code: 200
+  healthy_threshold: 2  # Number of consecutive successful checks before marking node healthy
+  unhealthy_threshold: 3  # Number of consecutive failures before marking node unhealthy
+
+# SSL settings (if applicable)
+ssl:
+  enabled: true
+  certificate_path: "configs/certs/load_balancer_cert.pem"
+  private_key_path: "configs/certs/load_balancer_key.pem"
+
+# Load balancing policies
+policies:
+  session_stickiness:
+    enabled: true
+    cookie_name: "SESSIONID"
+    ttl_seconds: 300  # Time to live for the sticky session cookie
+  rate_limiting:
+    enabled: true
+    requests_per_second: 100  # Maximum allowed requests per second per node
+
+# Logging
+logging:
+  log_level: "INFO"
+  log_to_file: true
+  log_file_path: "logs/load_balancer.log"
+  retention_days: 7
+
+# Failover settings
+failover:
+  enabled: true
+  backup_nodes:
+    - id: "backup_orchestrator"
+      address: "http://192.168.1.200:8000"
+      weight: 1
+
+# Miscellaneous
+misc:
+  auto_scaling:
+    enabled: true
+    min_nodes: 2
+    max_nodes: 10
