@@ -2,7 +2,7 @@ import torch
 import logging
 from torch import nn, optim
 from core.models.mnist_model import MNISTModel
-from core.data.mnist_data_loader import load_mnist_data
+from core.data.mnist_data_loader import MNISTDataLoader as load_mnist_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -75,7 +75,21 @@ class MNISTTrainingAgent:
 # Main function to train and evaluate the MNIST model
 def run_mnist_training_agent():
     logger.info("Loading MNIST data...")
-    train_loader, test_loader = load_mnist_data(batch_size=BATCH_SIZE)
+    data_loader = load_mnist_data(batch_size=BATCH_SIZE)
+    # Get training and test data loaders
+    train_loader = data_loader.get_train_loader()
+    test_loader = data_loader.get_test_loader()
+
+    # Display some data statistics
+    print(f"Number of training batches: {len(train_loader)}")
+    print(f"Number of testing batches: {len(test_loader)}")
+
+    # Iterate over the training data
+    for batch_idx, (data, target) in enumerate(train_loader):
+        print(f"Batch {batch_idx + 1}: Data shape: {data.shape}, Target shape: {target.shape}")
+        if batch_idx == 1:  # Display first two batches only
+            break
+    
     logger.info("MNIST data loaded successfully.")
 
     training_agent = MNISTTrainingAgent()

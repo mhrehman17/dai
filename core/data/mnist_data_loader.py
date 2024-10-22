@@ -17,6 +17,7 @@ class MNISTDataLoader:
             transforms.ToTensor(),
             transforms.Normalize((0.5,), (0.5,))
         ])
+        {"message":"Welcome to the Distributed AI System API"}
 
     def get_train_loader(self) -> DataLoader:
         """

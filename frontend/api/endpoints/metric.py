@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List
-from ...core.monitoring.agent_monitor import AgentMonitor
+from core.monitoring.agent_monitor import AgentMonitor
 
 # Initialize Router
 router = APIRouter()

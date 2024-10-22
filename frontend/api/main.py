@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.endpoints import agent, orchestrators, metric
+from frontend.api.endpoints import agent, orchestrators, metric
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI instance
@@ -15,9 +15,9 @@ app.add_middleware(
 )
 
 # Include router for each endpoint
-app.include_router(agents.router, prefix="/agent", tags=["Agent"])
-app.include_router(orchestrator.router, prefix="/orchestrators", tags=["Orchestrators"])
-app.include_router(metrics.router, prefix="/metric", tags=["Metric"])
+app.include_router(agent.router, prefix="/agent", tags=["Agent"])
+app.include_router(orchestrators.router, prefix="/orchestrators", tags=["Orchestrators"])
+app.include_router(metric.router, prefix="/metric", tags=["Metric"])
 
 # Root endpoint
 @app.get("/")

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List
-from ...core.orchestrator.decentralized_orchestrator import DecentralizedOrchestrator
+from core.orchestrator.decentralized_orchestrator import DecentralizedOrchestrator
 
 # Initialize Router and Orchestrator with type hints
 router = APIRouter()

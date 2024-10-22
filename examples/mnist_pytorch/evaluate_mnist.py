@@ -10,7 +10,7 @@ logger = logging.getLogger("MNISTEvaluation")
 
 # Constants
 BATCH_SIZE = 64
-MODEL_PATH = "core/models/registry/storage/version_1/checkpoint.pth"
+MODEL_PATH = "core/models/registry/storage/version_1.0/checkpoint.pth"
 
 # Load test dataset
 def load_test_data():

@@ -1,6 +1,6 @@
 from typing import Dict, List
 import random
-from ...core.monitoring.agent_metrics import AgentMetrics
+from core.monitoring.agent_metrics import AgentMetrics
 class AgentMonitor:
     def __init__(self):
         # Mock data to store metrics for each agent
