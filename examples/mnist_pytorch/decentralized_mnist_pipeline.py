@@ -2,7 +2,7 @@ import logging
 from threading import Thread
 from core.agents.training_agent import TrainingAgent
 from core.orchestrator.decentralized_orchestrator import DecentralizedOrchestrator
-from core.data.mnist_data_loader import MNISTDataLoader
+from core.data.mnist_data_loader import MNISTDataLoader 
 import time
 
 # Configure logging
@@ -27,7 +27,12 @@ def agent_training(agent_id, train_loader, test_loader, orchestrator):
 # Main function to run the decentralized MNIST training pipeline
 def run_decentralized_mnist_pipeline():
     logger.info("Loading MNIST data...")
-    train_loader, test_loader = MNISTDataLoader(batch_size=BATCH_SIZE)
+    # Get training and test data loaders
+    mnist_loader = MNISTDataLoader(batch_size=64)
+    train_loader = mnist_loader.get_train_loader()
+    test_loader = mnist_loader.get_test_loader()
+    
+    # train_loader, test_loader = MNISTDataLoader(batch_size=BATCH_SIZE)
     logger.info("MNIST data loaded successfully.")
 
     orchestrator = DecentralizedOrchestrator()

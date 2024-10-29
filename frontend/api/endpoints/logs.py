@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from typing import List, Dict
 import os
 import logging
-from core_utils_identity_utils import IdentityUtils
+from core.utils.identity_utils import IdentityUtils
 from core.agents.identity_management import IdentityManagement
 
 router = APIRouter()
@@ -82,4 +82,4 @@ if __name__ == "__main__":
     app.include_router(router, prefix="/logs", tags=["logs"])
 
     # Run the server
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

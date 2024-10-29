@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger("AgentSimulation")
 
 # Constants for the metrics API endpoint
-METRICS_API_URL = "http://localhost:8000/metrics"
+METRICS_API_URL = "http://localhost:8000/metric"
 AGENT_IDS = ["agent_1", "agent_2", "agent_3", "agent_4"]
 SIMULATION_INTERVAL = 5  # Interval in seconds for metric updates
 

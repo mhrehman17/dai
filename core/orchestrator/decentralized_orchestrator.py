@@ -75,6 +75,9 @@ class DecentralizedOrchestrator:
         :return: A list of all registered agent IDs.
         """
         return list(self.agents.keys())
+    
+    def report_training_completion(self, agent_id: str):
+        print("Training completed..."+ agent_id)
 
 # Example usage
 if __name__ == "__main__":

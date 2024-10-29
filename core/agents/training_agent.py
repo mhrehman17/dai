@@ -28,7 +28,7 @@ class TrainingAgent:
         print(f"Training complete for Agent {self.agent_id} in {training_time:.2f} seconds.")
         self.status = "idle"
 
-    def evaluate(self):
+    def evaluate(self, data: Optional[list] = None):
         """
         Simulates evaluation of the trained model.
         """

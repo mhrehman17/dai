@@ -69,6 +69,9 @@ class IdentityManagement:
         else:
             print(f"Token verification failed for agent '{agent_id}'.")
             return False
+    
+    def get_current_user(self):
+        return "current_user"
 
 # Example usage
 if __name__ == "__main__":

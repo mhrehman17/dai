@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from typing import Dict
 import logging
 from datetime import timedelta
-from core_utils_identity_utils import IdentityUtils
+from core.utils.identity_utils import IdentityUtils
 from core.agents.identity_management import IdentityManagement
 
 router = APIRouter()
@@ -109,4 +109,4 @@ if __name__ == "__main__":
     app.include_router(router, prefix="/auth", tags=["authentication"])
 
     # Run the server
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)
